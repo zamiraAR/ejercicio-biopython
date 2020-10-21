@@ -3,6 +3,7 @@ from Bio.SeqFeature import SeqFeature, FeatureLocation
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 import os
+filename = ("nombre del archivo genbank")
 def summarize_contents(filename):
 	all_records = []
 	record = list(SeqIO.parse(filename,"genbank"))
@@ -13,9 +14,7 @@ def summarize_contents(filename):
 		all_records.append(seq_r.name)
 		print("Name: ",seq_r.name)
 		print("ID :",seq_r.id)
-		print("Location:")
-		for seq_features in seq_r.features :
-			print('Star: %d, Stop: %d' %(int(seq_feature.location.start),int(seq_feature.location.end)))
+		print ("Description: " , seq_record.description, "\n")
 		
 	
-sunnarize_contents(filename)
+summarize_contents(filename)
