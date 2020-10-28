@@ -1,24 +1,27 @@
 def summarize_contents(filename):
-	listaOs = os.path.split(filename)
-	listaExt = os.path.splitext(filename)
-	if (listaExt[1] == ".gbk"):
+	listOs = os.path.split(filename)
+	listExt = os.path.splitext(filename)
+	if (listExt[1] == ".gbk"):
 		type_file= "genbank"
 	else: 
 		type_file= "fasta"
 	record = list(SeqIO.parse(filename, type_file))
-	d = {}
-	d['File:'] = listaOs[1]
-	d['Path:'] = listaOs[0]
-	d['Num_records:'] = len(record)
-	d['Names:'] = []
-	d['IDs:'] = []
-	d['Descriptions'] = []
+	
+	dictionary = {}
+	dictionary['File:'] = listaOs[1]
+	dictionary['Path:'] = listaOs[0]
+	dictionary['Num_records:'] = len(record)
+	
+	dictionary['Names:'] = []
+	dictionary['IDs:'] = []
+	dictionary['Descriptions'] = []
+	
 	for seq_rcd in SeqIO.parse(filename,type_file):
-		d['Names:'].append(seq_rcd.name)
-		d['IDs:'].append(seq_rcd.id)
-		d['Descriptions'].append(seq_rcd.description)
-	return d
-if _name_ == "_main_":
-	resultados = summarize_contents(filename)
-	print(resultados)
-
+		dictionary['Names:'].append(seq_rcd.name)
+		dictionary['IDs:'].append(seq_rcd.id)
+		dictionary['Descriptions'].append(seq_rcd.description)
+	return dictionary
+#print
+if name == "main":
+	result = summarize_contents(filename)
+	print(result)
