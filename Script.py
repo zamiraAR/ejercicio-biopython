@@ -1,20 +1,27 @@
-from Bio.Seq import Seq
-from Bio.SeqFeature import SeqFeature, FeatureLocation
-from Bio import SeqIO
-from Bio.SeqRecord import SeqRecord
-import os
-filename = ("nombre del archivo genbank")
 def summarize_contents(filename):
-	all_records = []
-	record = list(SeqIO.parse(filename,"genbank"))
-	print("Path: ",os.path.dirname(filename))
-	print("Num_record = %i records" %len(record))
-	print("\n")
-	for seq_r in SeqIO.parse(filename,"genbank"):
-		all_records.append(seq_r.name)
-		print("Name: ",seq_r.name)
-		print("ID :",seq_r.id)
-		print ("Description: " , seq_record.description, "\n")
-		
+	listOs = os.path.split(filename)
+	listExt = os.path.splitext(filename)
+	if (listExt[1] == ".gbk"):
+		type_file= "genbank"
+	else: 
+		type_file= "fasta"
+	record = list(SeqIO.parse(filename, type_file))
 	
-summarize_contents(filename)
+	dictionary = {}
+	dictionary['File:'] = listaOs[1]
+	dictionary['Path:'] = listaOs[0]
+	dictionary['Num_records:'] = len(record)
+	
+	dictionary['Names:'] = []
+	dictionary['IDs:'] = []
+	dictionary['Descriptions'] = []
+	
+	for seq_rcd in SeqIO.parse(filename,type_file):
+		dictionary['Names:'].append(seq_rcd.name)
+		dictionary['IDs:'].append(seq_rcd.id)
+		dictionary['Descriptions'].append(seq_rcd.description)
+	return dictionary
+#print
+if name == "main":
+	result = summarize_contents(filename)
+	print(result)
